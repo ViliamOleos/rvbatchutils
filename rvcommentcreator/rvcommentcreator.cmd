@@ -9,7 +9,7 @@ SET "POSTFIX=*/"
 SET "MIDPREFIX=[ "
 SET "MIDPOSTFIX= ]"
 
-SET "COUNT=90"
+SET "COUNT=15"
 
 :::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
 
