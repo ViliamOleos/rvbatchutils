@@ -14,21 +14,33 @@ Currently contains **3** utilities, You can see them listed here:
 
 # `baumeister`
 
+<details><summary></summary>
+<p>
+
+</p>
+</details>
+
 # `rvcommentcreator`
+
 <details><summary></summary>
 <p>
 
 A customisable script that will create a _"header"_ comment for use in code. Below You can see an example of what I mean by _"header"_:
+
 ```c
 /***************************************** MAIN *****************************************/
 ```
-And that still isn't the full display of all `rvcommentcreator` features, especially in the possible future.
+
+It's a big comment with a label in the middle to signify a specific section of Your code, making it easier to read and allowing you to separate things that really _do_ need to be separated.
+
+And there are still a few more things that `rvcommentcreator` cam do.
 
 ### Usage
 
-The current version in the repository requires You to copy the script to Your project and change the parameters inside of it _(and duplicate it for multiple presets)_. I _may_ make it more independent in the future, however.
+The current version in the repository requires You to copy the script to Your project and change the parameters inside of it _(duplicate it for multiple presets)_. I _may_ make it independent in the future, but for now, that's how we work.
 
-Below You can see all of the default parameters:
+Below You can see all of the default parameters _(preset for the C programming language)_:
+
 ```cmd
 SET "PREFIX=/*"
 SET "BAR=~"
@@ -37,41 +49,50 @@ SET "POSTFIX=*/"
 SET "MIDPREFIX=[ "
 SET "MIDPOSTFIX= ]"
 
-SET "COUNT=90"
+SET "COUNT=80"
 ```
+
 You are free to change them however You want, where the final comment is constructed like this:
 
-`%PREFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%MIDPREFIX%` MAIN `%MIDPOSTFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%POSTFIX%`
-And the `COUNT` parameter is used for the overall width of the comment in characters.
-Through parameter changes, You can stylise Your comments to be Your own and adapt them to any programming language, which is easy to see in this batch example:
+`%PREFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%MIDPREFIX%` `label` `%MIDPOSTFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%POSTFIX%`
+
+The `COUNT` parameter is used for the overall width of the comment in characters.
+
+Through parameter changes, You can stylise Your comments to be Your own and adapt them to almost any programming language, which is easy to see in this batch example:
+
 ```cmd
 :::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
 ```
 
-After all of it, generating is as easy as running the script at any time and inputting the label You want to be displayed in the middle of the comment. That label runtime variable will now be referred to as `label` from now on.
+After all of it, generating is as easy as running the script at any time and inputting the label You want to be displayed in the middle of the comment.
 
 ### Restrictions
 
 The parameters _do_ have some restrictions on them, though.
-1. `PREFIX` and `POSTFIX` have to be the exact same size.
-2. `MIDPREFIX` and `MIDPOSTFIX` have the same relation as in restriction `1`.
-3. `COUNT` and `label` must _both_ be even or odd, not mixed.
+1. `BAR` is always a single character long.
+2. `PREFIX` and `POSTFIX` have to be the exact same size.
+3. `MIDPREFIX` and `MIDPOSTFIX` have the same relation as in restriction `1`.
+4. `COUNT` and `label` must have the same parity _(property of being even or odd)_.
 
-And only one of those has any runtime burden, but it's there because the entire point of headers will collapse without it _(there would be no good way to centre the label if the comment width and the label cannot agree on having a definitive middle character)_.
+Only the `4`th rule has any runtime burden. In cases against the rule there would be no way to centre the label in any way, since they would disagree on whether the centre would be a character or between characters.
+
+### Additional Features
+
+Beyond what You have seen above in the text, I've recently added the `-c` flag feature that will automatically copy the generated comment into the clipboard for You if passed to the program. 
 
 </p>
 </details> 
 
 # `coolcmd`
+
 <details><summary></summary>
 <p>
 
-1. Makes Your cmd look stylish.
-2. Makes it easier to see boundaries of program outputs _(literally the whole reason i made this, for a couple of unique tricky situations)_.
+This script will launch a stylised `cmd` using the `prompt` command with nice colours. Useful for easily seeing where command outputs start & end, as well as just for eye candy)
 
-What's not to like?
+It has a few features of its own, like the `-A` flag launching `cmd` with administrator priviliges.
 
-Anyways, the usage is very simple — just run the script. It will launch the coloured command prompt at Your current location _(no matter where the script itself is located)_.
+It is recommended to launch the script using the Windows Explorer `Ctrl`+`L` bar or the `Win`+`R` Run Menu, as well as any other independent method, rather than through a `cmd` as a parent. Perhaps can be added to PATH...
 
 </p>
 </details> 
