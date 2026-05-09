@@ -31,7 +31,10 @@ SET "ACLR=%CLR%%BARSEN%"
 rem preset vars
 SET "baum=baum_std"
 SET "prog=output\main"
+SET "args="
 
+:HARDBOOT
+CALL "baumeistercfg.cmd"
 :PLAQUE
 
 ECHO %ACLR%
@@ -48,11 +51,12 @@ ECHO.	[q] quit
 ECHO %ACLR%
 ECHO Configuration:%YELOW%
 ECHO.	build script = [%ACLR%%baum%%YELOW%];
-ECHO.	program = [%ACLR%%prog%%YELOW%]
+ECHO.	program = [%ACLR%%prog%%YELOW%];
+ECHO.	arguments = [%ACLR%%args%%YELOW%];
 ECHO.
 
 ECHO | SET "/p=%_RED_%"
-CHOICE /c rfcehq /n /m "Your choice:"
+CHOICE /c rfcehqoi /n /m "Your choice:"
 SET "ans=%errorlevel%"
 ECHO | SET "/p=%CLR%"
 
@@ -61,9 +65,7 @@ IF "%ans%"=="1" (
 ) ELSE IF "%ans%"=="2" (
 	rem fused
 	CALL :compile
-	IF NOT ERRORLEVEL 1 (
-		CALL :run
-	)
+	IF NOT ERRORLEVEL 1 ( CALL :run )
 ) ELSE IF "%ans%"=="3" (
 	CALL :compile
 ) ELSE IF "%ans%"=="4" (
@@ -72,8 +74,9 @@ IF "%ans%"=="1" (
 	rem help
 ) ELSE IF "%ans%"=="6" (
 	GOTO :QUIT
-) ELSE IF "%ans%"=="0" (
-	rem ctrlC
+) ELSE IF "%ans%"=="7" (
+	rem DEV: HARD REBOOT
+	GOTO :HARDBOOT
 ) ELSE IF "%ans%"=="255" (
 	rem err
 ) 
@@ -93,7 +96,7 @@ goto:eof
 
 	CALL :screenReset
 
-	%prog%
+	%prog% %args%
 	SET "run_ans=%errorlevel%"
 	
 	ECHO.

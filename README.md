@@ -74,6 +74,8 @@ The parameters _do_ have some restrictions on them, though.
 3. `MIDPREFIX` and `MIDPOSTFIX` have the same relation as in restriction `1`.
 4. `COUNT` and `label` must have the same parity _(property of being even or odd)_.
 
+Oh, and of course, common sense applies ^
+
 Only the `4`th rule has any runtime burden. In cases against the rule there would be no way to centre the label in any way, since they would disagree on whether the centre would be a character or between characters.
 
 ### Additional Features
