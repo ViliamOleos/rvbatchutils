@@ -3,16 +3,18 @@ Collection of drag-and-drop batch utilities for Your projects!
 These are written _entirely_ in batch and that fact can be utilised to its fullest potential)
 
 Currently contains **3** utilities, You can see them listed here:
-| Complexity |       Utility      |   Status  | Short description |
-|------------|--------------------|-----------|-------------------|
-| 1.         | `baumeister`       | WIP       | Simple, but powerful and customisable persistent build system adaptable to any language and tooling. |
-| 2.         | `rvcommentcreator` | Usable    | A tiny tool for quickly creating header comments. May get more features in the future. |
-| 3.         | `coolcmd`          | _perfect_ | An afterthought script I wrote for quickly launching a coloured command prompt, which helps with seeing where output of a program ends sometimes. |
+| Complexity |       Utility      |     Status    | Short description |
+|------------|--------------------|---------------|-------------------|
+| 1.         | `baumeister`       | Mostly WIP    | Simple, but powerful and customisable persistent build system adaptable to any language and tooling. |
+| 2.         | `rvcommentcreator` | Early Version | A tiny tool for quickly creating header comments. May get more features in the future. |
+| 3.         | `coolcmd`          | `v1.2`        | A batch script for launching a fancy CMD prompt with some features of its own. |
 
-> [!IMPORTANT]
+> [!NOTE]
 > This repository still needs much work.
 
-# `baumeister`
+#
+
+### `baumeister`
 
 <details><summary></summary>
 <p>
@@ -20,7 +22,7 @@ Currently contains **3** utilities, You can see them listed here:
 </p>
 </details>
 
-# `rvcommentcreator`
+### `rvcommentcreator`
 
 <details><summary></summary>
 <p>
@@ -85,16 +87,25 @@ Beyond what You have seen above in the text, I've recently added the `-c` flag f
 </p>
 </details> 
 
-# `coolcmd`
+### `coolcmd`
 
 <details><summary></summary>
 <p>
 
-This script will launch a stylised `cmd` using the `prompt` command with nice colours. Useful for easily seeing where command outputs start & end, as well as just for eye candy)
+This will launch a `cmd` and will use the `prompt` command to add pretty colours into the mix. That _does_ have practical uses, like seeing where command outputs start and end.
 
-It has a few features of its own, like the `-A` flag launching `cmd` with administrator priviliges.
+Currently `coolcmd` isn't too customizable, but it would be great to expand its feature set in the future.
 
-It is recommended to launch the script using the Windows Explorer `Ctrl`+`L` bar or the `Win`+`R` Run Menu, as well as any other independent method, rather than through a `cmd` as a parent. Perhaps can be added to PATH...
+In the first argument, You can pass `-A` to make the script automatically launch the `cmd` with Administrator priviliges. Not only does it do that, but it ensures that the Admin CMD is launched in the directory You've actually launched it in, so its functionally better than regular `cmd` too!
+<details><summary>Additional</summary>
+<p>
+
+> _Technically You have `-R`, which is used internally to request an elevated `coolcmd` to use the saved original directory. This will grab the `RVBATCHUTILS-COOLCMD-ADMINPATH` global environment variable for this user and navigate to the directory specified there._
+
+</p>
+</details> 
+
+There aren't any restrictions on running this a very specific way, but it's intended to be ran without a prompt already as a parent, so instead of typing in an already opened `cmd` or `powershell` You'll want to open it by double-clicking the script or its shortcut, through the `Win`+`R` Run Menu, typing it in the `Ctrl`+`L` address bar of Windows Explorer, though it _should_ work perfectly fine in most scenarios with some mild inconveniences.
 
 </p>
 </details> 
