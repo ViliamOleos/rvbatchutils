@@ -34,7 +34,7 @@ SET "prog=output\main"
 SET "args="
 
 :HARDBOOT
-CALL "baumeistercfg.cmd"
+CALL "baumeister_cfg.cmd"
 :PLAQUE
 
 ECHO %ACLR%

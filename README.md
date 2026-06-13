@@ -1,16 +1,37 @@
-# rvbatchutils
+# `rvbatchutils`
 Collection of drag-and-drop batch utilities for Your projects!
 These are written _entirely_ in batch and that fact can be utilised to its fullest potential)
 
-Currently contains **3** utilities, You can see them listed here:
 | Complexity |       Utility      |     Status    | Short description |
 |------------|--------------------|---------------|-------------------|
 | 1.         | `baumeister`       | Mostly WIP    | Simple, but powerful and customisable persistent build system adaptable to any language and tooling. |
 | 2.         | `rvcommentcreator` | Early Version | A tiny tool for quickly creating header comments. May get more features in the future. |
 | 3.         | `coolcmd`          | `v1.2`        | A batch script for launching a fancy CMD prompt with some features of its own. |
 
+## Installing
+
+`rvbatchutils` is now installable, but I'm still focusing this project to be copy-friendly. It's is just an optional convenience, especially for utils like `coolcmd`, which aren't something You'd normally use in a project. Utils with dashes _(`-`)_ in their names are imperatively not intended for installation. All the installation helpers are located in `rvbatchutils-installer\`. It's expected that they are ran from a command prompt located at the aforementioned directory with administrator permissions.
+
+_(tip: You may run `..\coolcmd\coolcmd -A` to automatically launch a new `cmd` in the same place with admin :D)_
+
+- `setup-rvbatchutils.cmd`
+  - Executes some preliminary steps required before installing any actual utils. Run this first when installing.
+  - As the first parameter, accepts an optional installation path, where all `rvbatchutils` will go. Path must have a `\` at the end. If not specified, `C:\Program Files\rvbatchutils\` will be used instead.
+  - _(tip: if You're not happy with the directory You chose or made an error with it, You can run the script again without fully uninstalling as long as You haven't installed any utils)_
+- `install-util.cmd`
+  - Installs the utility specified by the first argument _(required)_. For example: `install-util coolcmd` or `install-util rvcommentcreator`.
+- `unins-util.cmd`
+  - Deletes the utility specified by the first argument, similarly to `install-util.cmd`.
+- `unins-rvbatchutils.cmd`
+  - Completely removes `rvbatchutils` from Your system. Simply uninstalling all installed utils is not enough.
+  - _(tip: You can fully uninstall using this script without deleting any utils individually)_
+
+## Postscript
+
+You are motivated to look into all the code of this repository Yourself! That is one of the surprisingly good aspects to writing in batch.
+
 > [!NOTE]
-> This repository still needs much work.
+> The repository still needs a hefty bit of work, there are places in which it is very unfinished, not mentioning the utils themselves.
 
 #
 
@@ -109,3 +130,5 @@ There aren't any restrictions on running this a very specific way, but it's inte
 
 </p>
 </details> 
+
+#
