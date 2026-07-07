@@ -15,4 +15,5 @@ IF "%1"=="-A" (
 
 REG DELETE HKCU\Environment /V RVBATCHUTILS-COOLCMD-ADMINPATH /F
 PROMPT $E[35m[$P\]$S$E[95m$B$S$E[0m
+CLS
 CMD /K "cd %myCD%"

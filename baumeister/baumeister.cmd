@@ -28,13 +28,15 @@ SET "BARSEN=%PB%%AB%234m"
 rem custom clear
 SET "ACLR=%CLR%%BARSEN%"
 
-rem preset vars
-SET "baum=baum_std"
-SET "prog=output\main"
-SET "args="
+rem default vars
+SET "bau=bau_std"
+SET "program=output\main"
+SET "arguments="
 
-:HARDBOOT
-CALL "baumeister_cfg.cmd"
+SETLOCAL ENABLEDELAYEDEXPANSION
+
+:REBOOT
+CALL "baum_cfg.cmd"
 :PLAQUE
 
 ECHO %ACLR%
@@ -47,56 +49,38 @@ ECHO.	[f] fused (comp ^& run)
 ECHO.	[c] compile%YELOW%
 ECHO.	[e] edit configuration%REGAL%
 ECHO.	[h] help
+ECHO.	[z] reboot
 ECHO.	[q] quit
 ECHO %ACLR%
 ECHO Configuration:%YELOW%
-ECHO.	build script = [%ACLR%%baum%%YELOW%];
-ECHO.	program = [%ACLR%%prog%%YELOW%];
-ECHO.	arguments = [%ACLR%%args%%YELOW%];
+ECHO.	   bau    = [%ACLR%%bau%%YELOW%];
+ECHO.	 program  = [%ACLR%%program%%YELOW%];
+ECHO.	arguments = [%ACLR%%arguments%%YELOW%];
 ECHO.
 
-ECHO | SET "/p=%_RED_%"
-CHOICE /c rfcehqoi /n /m "Your choice:"
+ECHO|SET /p="%_RED_%"
+CHOICE /c rfcehzq /n /m "Your choice:"
 SET "ans=%errorlevel%"
-ECHO | SET "/p=%CLR%"
 
-IF "%ans%"=="1" (
-	CALL :run
-) ELSE IF "%ans%"=="2" (
-	rem fused
-	CALL :compile
-	IF NOT ERRORLEVEL 1 ( CALL :run )
-) ELSE IF "%ans%"=="3" (
-	CALL :compile
-) ELSE IF "%ans%"=="4" (
-	rem edit
-) ELSE IF "%ans%"=="5" (
-	rem help
-) ELSE IF "%ans%"=="6" (
-	GOTO :QUIT
-) ELSE IF "%ans%"=="7" (
-	rem DEV: HARD REBOOT
-	GOTO :HARDBOOT
-) ELSE IF "%ans%"=="255" (
-	rem err
-) 
+ECHO %CLR%
+CLS
 
-GOTO PLAQUE
+       IF "%ans%"=="1" ( CALL :run 
+) ELSE IF "%ans%"=="2" ( CALL :compile && CALL :run
+) ELSE IF "%ans%"=="3" ( CALL :compile 
+) ELSE IF "%ans%"=="4" ( CALL :edit
+) ELSE IF "%ans%"=="5" ( rem help
+) ELSE IF "%ans%"=="6" ( GOTO :REBOOT 
+) ELSE IF "%ans%"=="7" ( GOTO :QUIT 
+)
+
+GOTO :PLAQUE
 
 :::::::::::::::::::::::::::::::::::::::::: FUNC ::::::::::::::::::::::::::::::::::::::::::
 
-:screenReset
-	ECHO %CLR%
-	CLS
-goto:eof
-
-::: COMPS :::
-
 :run
 
-	CALL :screenReset
-
-	%prog% %args%
+	%program% %arguments%
 	SET "run_ans=%errorlevel%"
 	
 	ECHO.
@@ -107,9 +91,7 @@ goto:eof
 
 :compile
 
-	CALL :screenReset
-
-	CALL %baum%
+	CALL %bau%
 	SET "compile_ans=%errorlevel%"
 
 	ECHO.
@@ -123,9 +105,43 @@ goto:eof
 
 goto:eof
 
+:edit
+
+	SET "ed_neoval="
+	
+	ECHO %ACLR%
+	CLS
+	ECHO Configuration:%YELOW%
+	ECHO.	[b]    bau    = [%ACLR%%bau%%YELOW%];
+	ECHO.	[p]  program  = [%ACLR%%program%%YELOW%];
+	ECHO.	[a] arguments = [%ACLR%%arguments%%YELOW%];
+	ECHO %REGAL%
+	ECHO [q] quit
+	ECHO %ACLR%
+
+	ECHO|SET /p="%_RED_%"
+	CHOICE /c bpaq /n /m "Your choice:"
+	SET "ed_ans=%errorlevel%"
+
+	       IF "%ed_ans%"=="1" ( SET "ed_ans=bau"
+	) ELSE IF "%ed_ans%"=="2" ( SET "ed_ans=program"
+	) ELSE IF "%ed_ans%"=="3" ( SET "ed_ans=arguments"
+	) ELSE IF "%ed_ans%"=="4" ( exit /b
+	)
+
+	ECHO %ACLR%
+	CLS
+	ECHO %YELOW%Editing %GREEN%"%ed_ans%"%YELOW% = [%ACLR%!%ed_ans%!%YELOW%];
+	ECHO.
+	SET /p "ed_neoval=New value: %ACLR%"
+	SET "%ed_ans%=%ed_neoval%"
+	ECHO SET "%ed_ans%=%ed_neoval%"
+	
+	GOTO :edit
+
+goto:eof
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :QUIT
 CLS
-
-REM possible optimisation todo?

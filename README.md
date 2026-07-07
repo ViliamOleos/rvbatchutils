@@ -28,7 +28,7 @@ _(tip: You may run `..\coolcmd\coolcmd -A` to automatically launch a new `cmd` i
 
 ## Postscript
 
-You are motivated to look into all the code of this repository Yourself! That is one of the surprisingly good aspects to writing in batch.
+You are motivated to look into all the code of this repository Yourself! That is one of the several good aspects to writing in batch.
 
 > [!NOTE]
 > The repository still needs a hefty bit of work, there are places in which it is very unfinished, not mentioning the utils themselves.
