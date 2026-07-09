@@ -66,7 +66,7 @@ ECHO %CLR%
 CLS
 
        IF "%ans%"=="1" ( CALL :run 
-) ELSE IF "%ans%"=="2" ( CALL :compile && CALL :run
+) ELSE IF "%ans%"=="2" ( CALL :compile && CLS && CALL :run
 ) ELSE IF "%ans%"=="3" ( CALL :compile 
 ) ELSE IF "%ans%"=="4" ( CALL :edit
 ) ELSE IF "%ans%"=="5" ( rem help
@@ -101,6 +101,7 @@ goto:eof
 		ECHO Compilation ended.
 	)
 	PAUSE
+
 	exit /b %compile_ans%
 
 goto:eof
@@ -115,22 +116,29 @@ goto:eof
 	ECHO.	[b]    bau    = [%ACLR%%bau%%YELOW%];
 	ECHO.	[p]  program  = [%ACLR%%program%%YELOW%];
 	ECHO.	[a] arguments = [%ACLR%%arguments%%YELOW%];
-	ECHO %REGAL%
-	ECHO [q] quit
+	ECHO %YELOW%
+	ECHO [f] format %REGAL%[q] quit
 	ECHO %ACLR%
 
 	ECHO|SET /p="%_RED_%"
-	CHOICE /c bpaq /n /m "Your choice:"
+	CHOICE /c bpafq /n /m "Your choice:"
 	SET "ed_ans=%errorlevel%"
-
-	       IF "%ed_ans%"=="1" ( SET "ed_ans=bau"
-	) ELSE IF "%ed_ans%"=="2" ( SET "ed_ans=program"
-	) ELSE IF "%ed_ans%"=="3" ( SET "ed_ans=arguments"
-	) ELSE IF "%ed_ans%"=="4" ( exit /b
-	)
 
 	ECHO %ACLR%
 	CLS
+	       IF "%ed_ans%"=="1" ( SET "ed_ans=bau"
+	) ELSE IF "%ed_ans%"=="2" ( SET "ed_ans=program"
+	) ELSE IF "%ed_ans%"=="3" ( SET "ed_ans=arguments"
+	) ELSE IF "%ed_ans%"=="4" ( 
+		ECHO SET "bau=%bau%"
+		ECHO SET "program=%program%"
+		ECHO SET "arguments=%arguments%"
+		ECHO.
+		PAUSE
+		GOTO :edit
+	) ELSE IF "%ed_ans%"=="5" ( exit /b
+	)
+
 	ECHO %YELOW%Editing %GREEN%"%ed_ans%"%YELOW% = [%ACLR%!%ed_ans%!%YELOW%];
 	ECHO.
 	SET /p "ed_neoval=New value: %ACLR%"
