@@ -2,7 +2,6 @@
 
 ::::::::::::::::::::::::::::::::::::: COLOUR CONSOLE :::::::::::::::::::::::::::::::::::::
 
-rem Get ESC
 FOR /F %%a in ('ECHO PROMPT $E^| CMD') do SET "ESC=%%a"
 
 SET "PB=%ESC%["
@@ -25,12 +24,12 @@ SET "BARSEN=%PB%%AB%234m"
 
 :::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
 
-rem custom clear
 SET "ACLR=%CLR%%BARSEN%"
 
-rem default vars
+rem PROJECT VARS
 SET "bau=bau_std"
-SET "program=output\main"
+SET "options="
+SET "program=main"
 SET "arguments="
 
 SETLOCAL ENABLEDELAYEDEXPANSION
@@ -91,7 +90,7 @@ goto:eof
 
 :compile
 
-	CALL %bau%
+	CALL %bau% %options%
 	SET "compile_ans=%errorlevel%"
 
 	ECHO.
