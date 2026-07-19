@@ -1,6 +1,24 @@
 @echo off
 
-::::::::::::::::::::::::::::::::::::::::: CONFIG :::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
+
+	SETLOCAL enabledelayedexpansion
+
+::: === args === :::
+
+IF ["%1"]==["-c"] (
+	SET "acopyc=-c"
+	SET "astyle=%2"
+) ELSE (
+	SET "astyle=%1"
+	SET "acopyc=%2"
+)
+
+IF ["%astyle%"]==[""] (
+	SET "%astyle%==rvccs_main.cmd"
+)
+
+::: === style === :::
 
 SET "PREFIX=/*"
 SET "BAR=~"
@@ -11,7 +29,9 @@ SET "MIDPOSTFIX= ]"
 
 SET "COUNT=80"
 
-:::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
+CALL %astyle%
+
+::: === echo === :::
 
 ECHO.
 ECHO.  This script shall create a header-style comment for this codebase.
@@ -23,9 +43,6 @@ SET /p label="Comment Label: "
 ECHO.
 
 ::: === var count === :::
-rem Count characters in config variables by putting them in a temp file and counting bytes
-
-	SETLOCAL enabledelayedexpansion
 
 CALL:varlenfunc PREFIX
 	SET PREFIX_siz=%return%
@@ -35,6 +52,7 @@ CALL:varlenfunc label
 	SET label_siz=%return%
 
 ::: === print === :::
+
 SET /a wingc=(%COUNT%-%label_siz%)/2 - %PREFIX_siz% - %MIDPREFIX_siz%
 
 SET "comment=%PREFIX%"
@@ -47,7 +65,7 @@ ECHO %comment%
 
 ECHO.
 ECHO|SET /p="Generation done^! "
-IF "%1"=="-c" (
+IF "%acopyc%"=="-c" (
 	ECHO|SET /p="%comment%"|CLIP
 	ECHO|SET /p="Automatically pasted into Your clipboard."
 ) ELSE (
@@ -55,12 +73,16 @@ IF "%1"=="-c" (
 )
 ECHO.
 
+::: =========== :::
+
 goto:eof
 
 :::::::::::::::::::::::::::::::::::::::::: FUNC ::::::::::::::::::::::::::::::::::::::::::
 
 rem %1 - inspected variable
 rem uses "vl_tempfile" variable, temp.tmp file, returns "return"
+rem 
+rem Count characters in config variables by putting them in a temp file and counting bytes
 :varlenfunc
 
 	SET vl_tempfile=temp.tmp
