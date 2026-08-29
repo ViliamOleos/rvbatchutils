@@ -1,7 +1,10 @@
 @echo off
 
+SETLOCAL ENABLEDELAYEDEXPANSION
+
 ::::::::::::::::::::::::::::::::::::: COLOUR CONSOLE :::::::::::::::::::::::::::::::::::::
 
+rem keep two lines under NL
 FOR /F %%a in ('ECHO PROMPT $E^| CMD') do SET "ESC=%%a"
 
 SET "PB=%ESC%["
@@ -32,8 +35,6 @@ SET "options="
 SET "program=main"
 SET "arguments="
 
-SETLOCAL ENABLEDELAYEDEXPANSION
-
 :REBOOT
 CALL "baum_cfg.cmd"
 :PLAQUE
@@ -53,6 +54,7 @@ ECHO.	[q] quit
 ECHO %ACLR%
 ECHO Configuration:%YELOW%
 ECHO.	   bau    = [%ACLR%%bau%%YELOW%];
+ECHO.	 options  = [%ACLR%%options%%YELOW%];
 ECHO.	 program  = [%ACLR%%program%%YELOW%];
 ECHO.	arguments = [%ACLR%%arguments%%YELOW%];
 ECHO.
@@ -113,29 +115,26 @@ goto:eof
 	CLS
 	ECHO Configuration:%YELOW%
 	ECHO.	[b]    bau    = [%ACLR%%bau%%YELOW%];
+	ECHO.	[o]  options  = [%ACLR%%options%%YELOW%];
 	ECHO.	[p]  program  = [%ACLR%%program%%YELOW%];
 	ECHO.	[a] arguments = [%ACLR%%arguments%%YELOW%];
-	ECHO %YELOW%
-	ECHO [f] format %REGAL%[q] quit
+	ECHO %GREEN%
+	ECHO [c] copy %REGAL%[q] quit
 	ECHO %ACLR%
 
 	ECHO|SET /p="%_RED_%"
-	CHOICE /c bpafq /n /m "Your choice:"
+	CHOICE /c bopacq /n /m "Your choice:"
 	SET "ed_ans=%errorlevel%"
 
 	ECHO %ACLR%
 	CLS
+
 	       IF "%ed_ans%"=="1" ( SET "ed_ans=bau"
-	) ELSE IF "%ed_ans%"=="2" ( SET "ed_ans=program"
-	) ELSE IF "%ed_ans%"=="3" ( SET "ed_ans=arguments"
-	) ELSE IF "%ed_ans%"=="4" ( 
-		ECHO SET "bau=%bau%"
-		ECHO SET "program=%program%"
-		ECHO SET "arguments=%arguments%"
-		ECHO.
-		PAUSE
-		GOTO :edit
-	) ELSE IF "%ed_ans%"=="5" ( exit /b
+	) ELSE IF "%ed_ans%"=="2" ( SET "ed_ans=options"
+	) ELSE IF "%ed_ans%"=="3" ( SET "ed_ans=program"
+	) ELSE IF "%ed_ans%"=="4" ( SET "ed_ans=arguments"
+	) ELSE IF "%ed_ans%"=="5" ( CALL :edclip & GOTO :edit
+	) ELSE IF "%ed_ans%"=="6" ( exit /b
 	)
 
 	ECHO %YELOW%Editing %GREEN%"%ed_ans%"%YELOW% = [%ACLR%!%ed_ans%!%YELOW%];
@@ -145,6 +144,25 @@ goto:eof
 	ECHO SET "%ed_ans%=%ed_neoval%"
 	
 	GOTO :edit
+
+goto:eof
+
+:edclip
+
+	IF ["%RVBATCHUTILS-INSTALL-DIR%"]==[""] (
+		SET "edc_clipfile=%temp%\rvbatchutils_baumeister_temp_clip.tmp"
+	) ELSE (
+		SET "edc_clipfile=%RVBATCHUTILS-INSTALL-DIR%baumeisterclip.tmp"
+	)
+
+	ECHO SET "bau=%bau%" > %edc_clipfile%
+	ECHO SET "options=%options%" >> %edc_clipfile%
+	ECHO SET "program=%program%" >> %edc_clipfile%
+	ECHO SET "arguments=%arguments%" >> %edc_clipfile%
+
+	CLIP < %edc_clipfile%
+
+	DEL %edc_clipfile%
 
 goto:eof
 

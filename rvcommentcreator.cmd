@@ -1,8 +1,8 @@
 @echo off
 
-:::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
-
 	SETLOCAL enabledelayedexpansion
+
+:::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
 
 ::: === args === :::
 
@@ -79,18 +79,19 @@ goto:eof
 
 :::::::::::::::::::::::::::::::::::::::::: FUNC ::::::::::::::::::::::::::::::::::::::::::
 
-rem %1 - inspected variable
-rem uses "vl_tempfile" variable, temp.tmp file, returns "return"
-rem 
-rem Count characters in config variables by putting them in a temp file and counting bytes
 :varlenfunc
 
-	SET vl_tempfile=temp.tmp
+	IF ["%RVBATCHUTILS-INSTALL-DIR%"]==[""] (
+		SET "vl_tempfile=%temp%rvbatchutils_rvcommentcreator_temp_varlenfunc.tmp"
+	) ELSE (
+		SET "vl_tempfile=%RVBATCHUTILS-INSTALL-DIR%rvcc_varlenfunc.tmp"
+	)
+
 	ECHO !%1!>%vl_tempfile%
 
 	FOR /f "usebackq" %%i in ('%vl_tempfile%') do SET /a return=%%~zi-2
 
-	DEL %vl_tempfile%
+	DEL /Q %vl_tempfile%
 
 goto:eof
 
