@@ -21,7 +21,7 @@ IF ["%astyle%"]==[""] (
 ::: === style === :::
 
 SET "PREFIX=/*"
-SET "BAR=~"
+SET "BAR=*"
 SET "POSTFIX=*/"
 
 SET "MIDPREFIX=[ "
@@ -37,7 +37,7 @@ ECHO.
 ECHO.  This script shall create a header-style comment for this codebase.
 ECHO Input a comment label which will be in the middle of the comment.
 ECHO Ensure Your label isn't too big and its length has the same parity as comment width.
-ECHO Example comment: %PREFIX%%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%%MIDPREFIX% MAIN %MIDPOSTFIX%%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%%POSTFIX%
+ECHO Example comment: %PREFIX%%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%%MIDPREFIX%MAIN%MIDPOSTFIX%%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%%POSTFIX%
 ECHO.
 SET /p label="Comment Label: "
 ECHO.
@@ -81,13 +81,14 @@ goto:eof
 
 :varlenfunc
 
+
 	IF ["%RVBATCHUTILS-INSTALL-DIR%"]==[""] (
 		SET "vl_tempfile=%temp%rvbatchutils_rvcommentcreator_temp_varlenfunc.tmp"
 	) ELSE (
 		SET "vl_tempfile=%RVBATCHUTILS-INSTALL-DIR%rvcc_varlenfunc.tmp"
 	)
 
-	ECHO !%1!>%vl_tempfile%
+	ECHO.!%1!>%vl_tempfile%
 
 	FOR /f "usebackq" %%i in ('%vl_tempfile%') do SET /a return=%%~zi-2
 

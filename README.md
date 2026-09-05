@@ -102,11 +102,15 @@ Importantly `rvcommentcreator` can create a few other types of comments, though 
 
 ### Usage
 
-You are free to use the program in any way, but the main way is to create _"style scripts"_ that set the following variables just like in the example _(this one is for the C Programming Language)_:
+To use `rvcommentcreator` You may utilise _"style scripts"_: they set variables used by the comment generation code to vary symbols in generated comments. That means You're free to adjust headers in the name of language syntax or personal beauty ideals. See how the variables are used below:
+
+`%PREFIX%` `%BAR%%BAR%...%BAR%%BAR%` `%MIDPREFIX%` `label` `%MIDPOSTFIX%` `%BAR%%BAR%...%BAR%%BAR%` `%POSTFIX%`
+
+The hardcoded, default style used in the absence of any project-specific style is showcased below, catered for the C programming language, by proxy for similar languages as well. It can serve as an example to build off of for Your own styles.
 
 ```cmd
 SET "PREFIX=/*"
-SET "BAR=~"
+SET "BAR=*"
 SET "POSTFIX=*/"
 
 SET "MIDPREFIX=[ "
@@ -115,30 +119,24 @@ SET "MIDPOSTFIX= ]"
 SET "COUNT=80"
 ```
 
-There is a naming convention for the style scripts: `rvccs_*.cmd`, where `*` is any name You choose. `rvccs` stands for _"RV Comment Creator Style"_.
+The naming convention for clarity is `rvvccs_*.cmd`. `*` is, of course, Your freedom, while `rvccs` stands for _"RV Comment Creator Style"_.
 
 To run the style scripts, You just pass them as an argument to `rvcommentcreator`. If such an argument isn't passed, the comment creator runs `rvccs_main.cmd`, and if that file doesn't exist, it just takes its default style found in the code instead _(tip: You can pass arguments to the style script by doing something akin to `rvcommentcreator "rvccs_yourstylehere.cmd yourargumentshere"`)_.
 
-The final comment is constructed like this:
-
-`%PREFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%MIDPREFIX%` `label` `%MIDPOSTFIX%` `%BAR%%BAR%%BAR%...%BAR%%BAR%%BAR%` `%POSTFIX%`
-
 The `COUNT` parameter is used for the overall width of the comment in characters.
 
-Through parameter changes, You can stylise Your comments to be Your own and adapt them to almost any programming language, which is easy to see in this batch example:
+Using a style script, I've made labels for Batch as well and I currently use them in the codebase of `rvcommentcreator` itself!
 
 ```cmd
 :::::::::::::::::::::::::::::::::::::::::: MAIN ::::::::::::::::::::::::::::::::::::::::::
 ```
-
-After all of that, generating is as easy as running the script at any time and inputting the label You would like to be displayed in the middle of the comment.
 
 ### Restrictions
 
 The parameters do have some restrictions on them:
 1. `BAR` is always a single character long.
 2. `PREFIX` and `POSTFIX` have to be the exact same size.
-3. `MIDPREFIX` and `MIDPOSTFIX` have the same relation.
+3. `MIDPREFIX` and `MIDPOSTFIX` have the same relation. ^
 4. `COUNT` and `label` must have the same parity _(property of being even or odd)_.
 
 Oh, and of course, common sense applies ^
