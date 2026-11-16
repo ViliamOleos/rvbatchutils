@@ -14,10 +14,6 @@ IF ["%1"]==["-c"] (
 	SET "acopyc=%2"
 )
 
-IF ["%astyle%"]==[""] (
-	SET "%astyle%==rvccs_main.cmd"
-)
-
 ::: === style === :::
 
 SET "PREFIX=/*"

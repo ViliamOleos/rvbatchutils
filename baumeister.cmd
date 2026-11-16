@@ -48,7 +48,6 @@ ECHO.	[r] run
 ECHO.	[f] fused (comp ^& run)
 ECHO.	[c] compile%YELOW%
 ECHO.	[e] edit configuration%REGAL%
-ECHO.	[h] help
 ECHO.	[z] reboot
 ECHO.	[q] quit
 ECHO %ACLR%
@@ -60,7 +59,7 @@ ECHO.	arguments = [%ACLR%%arguments%%YELOW%];
 ECHO.
 
 ECHO|SET /p="%_RED_%"
-CHOICE /c rfcehzq /n /m "Your choice:"
+CHOICE /c rfcezq /n /m "Your choice:"
 SET "ans=%errorlevel%"
 
 ECHO %CLR%
@@ -70,9 +69,8 @@ CLS
 ) ELSE IF "%ans%"=="2" ( CALL :compile && CLS && CALL :run
 ) ELSE IF "%ans%"=="3" ( CALL :compile 
 ) ELSE IF "%ans%"=="4" ( CALL :edit
-) ELSE IF "%ans%"=="5" ( rem help
-) ELSE IF "%ans%"=="6" ( GOTO :REBOOT 
-) ELSE IF "%ans%"=="7" ( GOTO :QUIT 
+) ELSE IF "%ans%"=="5" ( GOTO :REBOOT 
+) ELSE IF "%ans%"=="6" ( GOTO :QUIT 
 )
 
 GOTO :PLAQUE

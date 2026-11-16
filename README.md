@@ -7,7 +7,7 @@ These are written _entirely_ in batch and that fact can be utilised to its fulle
 | 1.         | `baumeister`         | Simple, but very customisable build system theoretically adaptable to any tooling. |
 | 2.         | `administratosphere` | Basically `sudo` but Windows) |
 | 3.         | `rvcommentcreator`   | A tiny tool for quickly creating header comments. May get more features in the future. |
-| 4.         | `rvcmd`              | A batch script for launching a fancy CMD prompt. |
+| 4.         | `rvcmd`              | Fancy CMD prompt. |
 
 ## Installing
 
@@ -29,14 +29,7 @@ _(tip: You may run `..\administratosphere` to automatically launch a new prompt 
   - _(tip: You can fully uninstall using this script without deleting any utils individually)_
 
 > [!NOTE]
-> _(If a util's name was updated, `unins-util` the old name in addition to installing the new one)_
-
-## Postscript
-
-You are motivated to look into all the code of this repository Yourself!
-
-> [!CAUTION]
-> And if an `rvbatchutil` program runs its own scripts, check those too, especially if You're in a foreign project.
+> _(If a util's name was updated, `unutil` the old name in addition to installing the new one)_
 
 #
 
@@ -119,9 +112,9 @@ SET "MIDPOSTFIX= ]"
 SET "COUNT=80"
 ```
 
-The naming convention for clarity is `rvvccs_*.cmd`. `*` is, of course, Your freedom, while `rvccs` stands for _"RV Comment Creator Style"_.
+The naming convention for clarity is `rvccs_*.cmd`. `*` is Your freedom, while `rvccs` stands for _"RV Comment Creator Style"_.
 
-To run the style scripts, You just pass them as an argument to `rvcommentcreator`. If such an argument isn't passed, the comment creator runs `rvccs_main.cmd`, and if that file doesn't exist, it just takes its default style found in the code instead _(tip: You can pass arguments to the style script by doing something akin to `rvcommentcreator "rvccs_yourstylehere.cmd yourargumentshere"`)_.
+To run the style scripts, You just pass them as an argument to `rvcommentcreator`. If one isn't given, RVCC just uses a default style found in the code _(tip: You can pass arguments to the style script by doing something akin to `rvcommentcreator "rvccs_yourstylehere.cmd yourargumentshere"`)_.
 
 The `COUNT` parameter is used for the overall width of the comment in characters.
 
